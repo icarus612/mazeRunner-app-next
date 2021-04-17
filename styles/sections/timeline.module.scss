@@ -1,0 +1,32 @@
+.event_column {
+	padding: 20px;
+	width: 100%;
+	position: relative;
+}
+
+.center_line {
+	height: 0px;
+	width: 1px;
+	background-color: #000;
+	margin: auto;
+}
+
+.event_card {
+	position: relative;
+	padding: 20px;
+	margin: 20px 0;
+	text-align: left;
+	width: 100%;
+	background-color: rgba(50, 50, 50, .5);
+
+	&:after {
+		width: 40px;
+		height: 1px;
+		background-color: #000;
+		margin: auto;
+		position: absolute;
+		top: 50%;
+		right: 0;
+	}
+}
+

@@ -1,0 +1,29 @@
+@import "styles/typography";
+
+.tab_outer {
+	cursor: pointer;
+	overflow: hidden;
+	position: relative;
+	border-bottom: 1px solid $grey-light;
+	padding: 15px 2px;
+
+	.carrot {
+		transition: 300ms;
+		transform: rotateZ(-90deg);
+		transform-origin: center;
+		position: relative;
+
+		&.rotate {
+			transform: rotateZ(0)
+		}
+	}
+	.tab_inner {
+		transition: 300ms;
+		height: 0;
+		overflow: hidden;
+		cursor: pointer;
+		position: relative;
+		padding-left: 20px;
+	}
+}
+
