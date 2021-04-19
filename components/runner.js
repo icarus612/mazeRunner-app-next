@@ -1,6 +1,6 @@
-const Node = require("./node");
+import Node from "components/node"
 
-const Runner = (maze) => {
+export default (maze) => {
     let r =  {
         maze,
         openNodes: [],
@@ -11,6 +11,7 @@ const Runner = (maze) => {
         completed: false,
         mappedMaze: [],
         possiblePaths: [],
+        pathChar: false,
         
         getOpenNodes() {
             let p = this.maze.layout;
@@ -93,7 +94,7 @@ const Runner = (maze) => {
         viewCompleted() {
             if (!this.completed) return console.log("Cannot view completed version of incomplete maze")
             console.log("Completed Maze: ")
-            mappedMaze.map((i) => console.log(i.join("")));
+            this.mappedMaze.map((i) => console.log(i.join("")));
         },
 
         buildPath(path="x") {
@@ -109,12 +110,13 @@ const Runner = (maze) => {
                     } 
                 }
             }
-            mappedMaze = this.maze.layout.map((i)=> [...i]);
-            for (let i = 0; i < mappedMaze.length; i++) {
-                for (let j = 0; j < mappedMaze[i].length; j++) {
+            this.pathChar = path
+            this.mappedMaze = this.maze.layout.map((i)=> [...i]);
+            for (let i = 0; i < this.mappedMaze.length; i++) {
+                for (let j = 0; j < this.mappedMaze[i].length; j++) {
                     [...this.end.path].map((p)=> {
                         if ((p[0] == i && p[1] == j) && (this.start.value[0] != i || this.start.value[1] != j)) {
-                            mappedMaze[i][j] = path;
+                            this.mappedMaze[i][j] = path;
                         } 
                     });
                 }
@@ -126,5 +128,3 @@ const Runner = (maze) => {
     r.findEndPoints();
     return r;
 }
-
-module.exports = Runner;

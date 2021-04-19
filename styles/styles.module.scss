@@ -1,3 +1,35 @@
+.maze_tile {
+  width: 10px;
+  height: 10px;
+
+  &.start {
+    background-color: green;
+  }
+
+  &.end { 
+    background-color: red;
+  }
+
+  &.wall {
+    background-color: #444;
+  }
+
+  &.open {
+    background-color: white;
+  }
+
+  &.path {
+    background-color: purple;
+    border-radius: 50%;
+    margin: 2px;
+    width: 6px;
+    height: 6px;
+  }
+
+}
+
+
+//layout styles
 .container {
   padding: 25px;
   width: 100%;

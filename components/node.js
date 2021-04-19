@@ -1,4 +1,4 @@
-const Node = (value) => {
+export default (value) => {
     return {
         value: value,
         children: [],
@@ -21,5 +21,3 @@ const Node = (value) => {
         }
     }
 }
-
-module.exports = Node;

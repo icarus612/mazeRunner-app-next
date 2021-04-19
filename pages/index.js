@@ -1,65 +1,63 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import {useState} from 'react'
+import cx from 'classnames'
+import styles from 'styles/styles.module.scss'
+import Maze from "components/maze"
+import Runner from "components/runner"
 
-export default function Home() {
+export default ()=> {
+  const [currentMaze, setCurrentMaze] = useState(false)
+  const [currentCompleted, setCurrentCompleted] = useState(false)
+
+  const newMaze = () => {
+    setCurrentMaze(Maze())
+    setCurrentCompleted(false)
+  }
+  const solveMaze = () => {
+    const runner = Runner(currentMaze);
+    runner.makeNodePaths();
+    runner.buildPath();
+    setCurrentCompleted(runner);
+  }
+  
+  console.log(currentMaze)
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className={cx(styles.container, styles.h100_vh, styles.w100_vw, styles.f_col, styles.justify_center, styles.align_center)}>
+      <div>
+        {currentMaze && !currentCompleted && currentMaze.layout.map((row)=> {
+          return (
+            <div className={cx(styles.f_row)}>
+              {row.map((el, i)=> {
+                return <div key={i} className={cx(
+                  styles.maze_tile, 
+                  {[styles.start]: el == currentMaze.startChar},
+                  {[styles.end]: el == currentMaze.endChar},
+                  {[styles.wall]: el == currentMaze.wallChar},
+                  {[styles.open]: el == currentMaze.openChar},
+                )} />
+              })}
+            </div>
+          )
+        })}
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      {currentCompleted && currentCompleted.mappedMaze.map((row)=> {
+          return (
+            <div className={cx(styles.f_row)}>
+              {row.map((el, i)=> {
+                return <div key={i} className={cx(
+                  styles.maze_tile, 
+                  {[styles.start]: el == currentMaze.startChar},
+                  {[styles.end]: el == currentMaze.endChar},
+                  {[styles.wall]: el == currentMaze.wallChar},
+                  {[styles.open]: el == currentMaze.openChar},
+                  {[styles.path]: el == currentCompleted.pathChar},
+                )} />
+              })}
+            </div>
+          )
+        })}
+      </div>
+      <button onClick={()=> newMaze()}>New Maze</button>
+      {currentMaze && <button onClick={()=> solveMaze()}>Attempt to Solve</button>}
     </div>
   )
 }

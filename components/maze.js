@@ -1,4 +1,4 @@
-const Maze = (maze = {}) => {
+export default (maze = {}) => {
     let m = {
         wallChar: (maze.wallChar ? maze.wallChar : "#"),
         startChar: (maze.startChar ? maze.startChar : "s"),
@@ -80,5 +80,3 @@ const Maze = (maze = {}) => {
     }
     return m;
 }
-
-module.exports = Maze;
