@@ -21,25 +21,27 @@ export default ()=> {
     setCurrentCompleted(runner);
   }
   
+  const completedMaze = currentCompleted.completed ? currentCompleted.mappedMaze.map((row)=> {
+    return (
+      <div className={cx(styles.f_row)}>
+        {row.map((el, i)=> {
+          return <div key={i} className={cx(
+            styles.maze_tile, 
+            {[styles.start]: el == currentMaze.startChar},
+            {[styles.end]: el == currentMaze.endChar},
+            {[styles.wall]: el == currentMaze.wallChar},
+            {[styles.open]: el == currentMaze.openChar},
+            {[styles.path]: el == currentCompleted.pathChar},
+          )} />
+        })}
+      </div>
+    )
+  }) : <h5>Maze is not Solvable</h5>
+
   return (
     <div className={cx(styles.container, styles.h100_vh, styles.w100_vw, styles.f_col, styles.justify_center, styles.align_center)}>
-      <div>
-        {currentCompleted ? currentCompleted.mappedMaze.map((row)=> {
-          return (
-            <div className={cx(styles.f_row)}>
-              {row.map((el, i)=> {
-                return <div key={i} className={cx(
-                  styles.maze_tile, 
-                  {[styles.start]: el == currentMaze.startChar},
-                  {[styles.end]: el == currentMaze.endChar},
-                  {[styles.wall]: el == currentMaze.wallChar},
-                  {[styles.open]: el == currentMaze.openChar},
-                  {[styles.path]: el == currentCompleted.pathChar},
-                )} />
-              })}
-            </div>
-          )
-        }) : currentMaze && currentMaze.layout.map((row)=> {
+      <div className={styles.maze}>
+        {currentMaze && currentMaze.layout.map((row)=> {
           return (
             <div className={cx(styles.f_row)}>
               {row.map((el, i)=> {
@@ -54,8 +56,12 @@ export default ()=> {
             </div>
           )
         })}
+        {currentCompleted && (
+          <div className={styles.solved}>
+            {completedMaze}
+          </div>
+        )}
       </div>
-
       <div>
         <lable>Set Maze Height:</lable>
         <input 

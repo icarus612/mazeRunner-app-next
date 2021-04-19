@@ -28,6 +28,18 @@
 
 }
 
+.maze {
+  position: relative;
+
+  .solved {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 40%);
+    color: purple;
+  }
+}
 
 //layout styles
 .container {
