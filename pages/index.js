@@ -7,8 +7,8 @@ import Runner from "components/runner"
 export default ()=> {
   const [currentMaze, setCurrentMaze] = useState(false)
   const [currentCompleted, setCurrentCompleted] = useState(false)
-  const [height, setHeight] = useState(10)
-  const [width, setWidth] = useState(10)
+  const [height, setHeight] = useState(30)
+  const [width, setWidth] = useState(30)
 
   const newMaze = () => {
     setCurrentMaze(Maze({build: [height, width]}))
