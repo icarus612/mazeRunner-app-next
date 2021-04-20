@@ -120,7 +120,7 @@ export default ()=> {
         <div 
           className={cx(styles.maze_container_inner)} 
           style={{
-            transform: `translate(-${50*scaled}%, -${50*scaled}%) scale(${scaled})`,
+            transform: `translate(${(scaled-1)*50}%, ${(scaled-1)*50}%) scale(${scaled})`,
             padding: `${20/scaled}px`
           }}
         >

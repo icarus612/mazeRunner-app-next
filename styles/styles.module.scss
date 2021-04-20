@@ -71,11 +71,11 @@
     overflow: auto;
 
     .maze_container_inner {
-      position: absolute;
-      transform-origin: top left;
+      position: relative;
+      transform-origin: center;
       transition: 300ms ease-in-out;
-      left: 50%;
-      top: 50%;
+      margin: auto;
+      width: fit-content;
     }
 
     .solved {
