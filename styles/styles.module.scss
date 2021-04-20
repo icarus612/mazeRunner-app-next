@@ -1,6 +1,7 @@
 .maze_runner {
-  position: relative
-  ;
+  position: relative;
+  overflow: none;
+  
   .maze_tile {
     width: 10px;
     height: 10px;
