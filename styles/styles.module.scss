@@ -52,7 +52,7 @@
     }
 
     &.path {
-      background-color: #ba55d3;
+      background-color: #ad36cb;
       border-radius: 50%;
       margin: 2px;
       width: 6px;
@@ -92,7 +92,7 @@
         border: unset;
         margin: 2px;
         color: #f1f3f1;
-        background-color: #451A8D;
+        background-color: #ad36cb;
         cursor: pointer;
       }
     }
@@ -107,11 +107,12 @@
     margin-top: 20px;    
 
     .number_container {
-      margin: 0 10px;
+      margin: 10px;
     }
 
     span {
-      margin-bottom: 7px;
+      margin-top: 2px;
+      margin-bottom: 2px;
     }
 
     select {
@@ -123,7 +124,7 @@
       color: #444;
       padding: .4em 1.6em .3em .8em;
       box-sizing: border-box;
-      margin: 15px 0 5px 10px;
+      margin: 5px 0 5px 10px;
       border: none;
       box-shadow: 0 1px 5px -1px rgba(50,50,50,.5);
       border-radius: 6px;
@@ -143,7 +144,7 @@
   .number_input {
     border-radius: 6px;
     border: none;
-    height: 30px;
+    height: 26px;
     padding-left: 5px;
     box-shadow: 0 1px 5px -1px rgba(50,50,50,.5);
     background-color: #fff;
@@ -152,7 +153,7 @@
     font-weight: 700;
     color: #444;
     margin-left: 10px;
-    width: 40px;
+    width: 45px;
   }
 
   .maze_btn {
