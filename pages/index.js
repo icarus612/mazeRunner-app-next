@@ -103,21 +103,27 @@ export default ()=> {
   )
   return (
     <div className={cx(styles.container, styles.maze_runner, styles.f_col, styles.justify_end, styles.align_center)}>
-              <div className={cx(styles.zoom_container, styles.f_col, styles.justify_center, styles.align_center)}>
-          <button 
-            onClick={()=> setScaled(scaled < 2 ? scaled + .1 : 2)}
-            className={styles.zoom_btn}
-          >+</button>
-          <button 
-            onClick={()=> setScaled(scaled >= .2 ? scaled - .1 : .1)}
-            className={styles.zoom_btn}
-          >-</button>
-        </div>
+      <div className={cx(styles.zoom_container, styles.f_col, styles.justify_center, styles.align_center)}>
+        <button 
+          onClick={()=> setScaled(scaled < 2 ? scaled + .1 : 2)}
+          className={styles.zoom_btn}
+        >+</button>
+        <button 
+          onClick={()=> setScaled(scaled >= .2 ? scaled - .1 : .1)}
+          className={styles.zoom_btn}
+        >-</button>
+      </div>
       <div 
-        className={cx(styles.maze_container, styles.f_col, styles.justify_start, styles.align_start)}
+        className={cx(styles.maze_container)}
         ref={mazeContainerInner}
       >
-        <div className={styles.maze_container_inner} style={{transform: `scale(${scaled})`}}>
+        <div 
+          className={cx(styles.maze_container_inner)} 
+          style={{
+            transform: `translate(-${50*scaled}%, -${50*scaled}%) scale(${scaled})`,
+            padding: `${20/scaled}px`
+          }}
+        >
           {currentMaze ? currentMaze.layout.map((row)=> {
             return (
               <div className={cx(styles.f_row)}>
