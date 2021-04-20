@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useRef} from 'react'
 import cx from 'classnames'
 import styles from 'styles/styles.module.scss'
 import Maze from "components/maze"
@@ -8,11 +8,12 @@ export default ()=> {
   const [currentMaze, setCurrentMaze] = useState(false)
   const [currentCompleted, setCurrentCompleted] = useState(false)
   const [mazeType, setMazeType] = useState("h")
+  const [scaled, setScaled] = useState(1)
   const [height, setHeight] = useState(30)
   const [width, setWidth] = useState(30)
+  const mazeContainerInner = useRef(null)
 
   const newMaze = () => {
-    console.log(mazeType)
     setCurrentMaze(Maze({build: [height, width], buildType: mazeType}))
     setCurrentCompleted(false)
   }
@@ -27,7 +28,6 @@ export default ()=> {
     setCurrentMaze(false)
     setCurrentCompleted(false)
   }
- 
 
   const checkMaxMin = (n) => {
      if (n > 200) return 200
@@ -57,40 +57,55 @@ export default ()=> {
   )
   return (
     <div className={cx(styles.container, styles.maze_runner, styles.h100_vh, styles.w100_vw, styles.f_col, styles.justify_end, styles.align_center)}>
-      <div className={styles.maze}>
-        {currentMaze ? currentMaze.layout.map((row)=> {
-          return (
-            <div className={cx(styles.f_row)}>
-              {row.map((el, i)=> {
-                return <div key={i} className={cx(
-                  styles.maze_tile, 
-                  {[styles.start]: el == currentMaze.startChar},
-                  {[styles.end]: el == currentMaze.endChar},
-                  {[styles.wall]: el == currentMaze.wallChar},
-                  {[styles.open]: el == currentMaze.openChar},
-                )} />
-              })}
-            </div>
-          )
-        }) : [...new Array(Number(height))].map((_, j)=> {
+      <div 
+        className={cx(styles.maze_container, styles.f_col, styles.justify_center, styles.align_center)}
+        ref={mazeContainerInner}
+      >
+        <div className={cx(styles.zoom_container, styles.f_col, styles.justify_center, styles.align_center)}>
+          <button 
+            onClick={()=> setScaled(scaled < 2 ? scaled + .1 : 2)}
+            className={styles.zoom_btn}
+          >+</button>
+          <button 
+            onClick={()=> setScaled(scaled >= .2 ? scaled - .1 : .1)}
+            className={styles.zoom_btn}
+          >-</button>
+        </div>
+        <div style={{transform: `scale(${scaled})`}}>
+          {currentMaze ? currentMaze.layout.map((row)=> {
             return (
               <div className={cx(styles.f_row)}>
-                { [...new Array(Number(width))].map((_, i)=> {
-                  return <div key={`${i}${j}`} className={cx(
+                {row.map((el, i)=> {
+                  return <div key={i} className={cx(
                     styles.maze_tile, 
-                    styles[( i == 0 || j == 0 || i == width-1 || j == height-1) ? "wall" : "space"]
+                    {[styles.start]: el == currentMaze.startChar},
+                    {[styles.end]: el == currentMaze.endChar},
+                    {[styles.wall]: el == currentMaze.wallChar},
+                    {[styles.open]: el == currentMaze.openChar},
                   )} />
                 })}
               </div>
             )
-          }
-        )}
+          }) : [...new Array(Number(height))].map((_, j)=> {
+              return (
+                <div className={cx(styles.f_row)}>
+                  { [...new Array(Number(width))].map((_, i)=> {
+                    return <div key={`${i}${j}`} className={cx(
+                      styles.maze_tile, 
+                      styles[( i == 0 || j == 0 || i == width-1 || j == height-1) ? "wall" : "space"]
+                    )} />
+                  })}
+                </div>
+              )
+            }
+          )}
 
-        {currentCompleted && (
-          <div className={styles.solved}>
-            {completedMaze}
-          </div>
-        )}
+          {currentCompleted && (
+            <div className={styles.solved}>
+              {completedMaze}
+            </div>
+          )}
+        </div>
       </div>
       <div className={cx(styles.f_row, styles.f_wrap, styles.justify_center, styles.align_center, styles.settings_container)}>
         <div className={styles.number_container}>
@@ -117,7 +132,7 @@ export default ()=> {
             }} 
           />
         </div>
-        <div className={cx(styles.w100_percent, styles.f_row, styles.align_end, styles.justify_center)}>
+        <div className={cx(styles.w100_percent, styles.f_row, styles.f_wrap, styles.align_end, styles.justify_center)}>
           <span>Endpoint Placement:</span>
           <select 
             name="type" 
