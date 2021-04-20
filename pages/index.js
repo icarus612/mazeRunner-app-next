@@ -114,14 +114,15 @@ export default ()=> {
         >-</button>
       </div>
       <div 
-        className={cx(styles.maze_container)}
+        className={cx(styles.maze_container, styles.f_row, styles.justify_center, styles.align_center)}
         ref={mazeContainerInner}
       >
+      <div className={cx(styles.maze_container_middle, styles.f_col, styles.justify_center, styles.align_center)}>
         <div 
           className={cx(styles.maze_container_inner)} 
           style={{
-            transform: `translate(${(scaled-1)*50}%, ${(scaled-1)*50}%) scale(${scaled})`,
-            padding: `${20/scaled}px`
+            transform: `scale(${scaled})`,
+            padding: `${20/scaled}px`,
           }}
         >
           {currentMaze ? currentMaze.layout.map((row)=> {
@@ -163,7 +164,8 @@ export default ()=> {
             </div>
           )}
         </div>
-      </div>
+        </div>
+        </div>
       <div className={cx(styles.f_row, styles.f_wrap, styles.justify_center, styles.align_center, styles.settings_container)}>
         <div className={styles.number_container}>
           <label>Height:</label>

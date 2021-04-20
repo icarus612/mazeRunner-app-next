@@ -70,9 +70,15 @@
     flex: 1 1 100%;
     overflow: auto;
 
+    .maze_container_middle {
+      margin: auto;
+      width: 100%;
+      height: fit-content;
+    }
+
     .maze_container_inner {
       position: relative;
-      transform-origin: center;
+      transform-origin: 0 0;
       transition: 300ms ease-in-out;
       margin: auto;
       width: fit-content;
