@@ -153,7 +153,12 @@ export default ()=> {
           )}
 
           {currentCompleted && (
-            <div className={styles.solved}>
+            <div 
+              className={styles.solved}
+              style={{
+                top: `${20/scaled}px`
+              }}
+            >
               {completedMaze}
             </div>
           )}
