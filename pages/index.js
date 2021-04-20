@@ -56,7 +56,7 @@ export default ()=> {
     </div>
   )
   return (
-    <div className={cx(styles.container, styles.maze_runner, styles.h100_vh, styles.w100_vw, styles.f_col, styles.justify_end, styles.align_center)}>
+    <div className={cx(styles.container, styles.maze_runner, styles.f_col, styles.justify_end, styles.align_center)}>
       <div 
         className={cx(styles.maze_container, styles.f_col, styles.justify_center, styles.align_center)}
         ref={mazeContainerInner}
