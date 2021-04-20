@@ -1,4 +1,4 @@
-import {useState, useRef} from 'react'
+import {useState, useEffect, useRef} from 'react'
 import cx from 'classnames'
 import styles from 'styles/styles.module.scss'
 import Maze from "components/maze"
@@ -35,6 +35,52 @@ export default ()=> {
      return n
   }
   
+  useEffect(()=> {
+    const ele = mazeContainerInner.current;
+    ele.style.cursor = 'grab';
+
+    let pos = { top: 0, left: 0, x: 0, y: 0 };
+  
+    const mouseDownHandler = function(e) {
+        ele.style.cursor = 'grabbing';
+        ele.style.userSelect = 'none';
+  
+        pos = {
+            left: ele.scrollLeft,
+            top: ele.scrollTop,
+            // Get the current mouse position
+            x: e.clientX,
+            y: e.clientY,
+        };
+  
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
+    };
+  
+    const mouseMoveHandler = function(e) {
+        // How far the mouse has been moved
+        const dx = e.clientX - pos.x;
+        const dy = e.clientY - pos.y;
+  
+        // Scroll the element
+        ele.scrollTop = pos.top - dy;
+        ele.scrollLeft = pos.left - dx;
+    };
+  
+    const mouseUpHandler = function() {
+        ele.style.cursor = 'grab';
+        ele.style.removeProperty('user-select');
+  
+        document.removeEventListener('mousemove', mouseMoveHandler);
+        document.removeEventListener('mouseup', mouseUpHandler);
+    };
+  
+    // Attach the handler
+    ele.addEventListener('mousedown', mouseDownHandler);
+  })
+
+
+
   const completedMaze = currentCompleted.completed ? currentCompleted.mappedMaze.map((row)=> {
     return (
       <div className={cx(styles.f_row)}>
@@ -57,11 +103,7 @@ export default ()=> {
   )
   return (
     <div className={cx(styles.container, styles.maze_runner, styles.f_col, styles.justify_end, styles.align_center)}>
-      <div 
-        className={cx(styles.maze_container, styles.f_col, styles.justify_center, styles.align_center)}
-        ref={mazeContainerInner}
-      >
-        <div className={cx(styles.zoom_container, styles.f_col, styles.justify_center, styles.align_center)}>
+              <div className={cx(styles.zoom_container, styles.f_col, styles.justify_center, styles.align_center)}>
           <button 
             onClick={()=> setScaled(scaled < 2 ? scaled + .1 : 2)}
             className={styles.zoom_btn}
@@ -71,7 +113,11 @@ export default ()=> {
             className={styles.zoom_btn}
           >-</button>
         </div>
-        <div style={{transform: `scale(${scaled})`}}>
+      <div 
+        className={cx(styles.maze_container, styles.f_col, styles.justify_start, styles.align_start)}
+        ref={mazeContainerInner}
+      >
+        <div className={styles.maze_container_inner} style={{transform: `scale(${scaled})`}}>
           {currentMaze ? currentMaze.layout.map((row)=> {
             return (
               <div className={cx(styles.f_row)}>
