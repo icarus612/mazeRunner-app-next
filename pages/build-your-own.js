@@ -4,6 +4,8 @@ import local from 'styles/styles.module.scss'
 import Maze from "components/maze"
 import Runner from "components/runner"
 
+
+
 export default ()=> {
   const [currentCompleted, setCurrentCompleted] = useState(false)
   const [currentTile, setCurrentTile] = useState("wall")
@@ -12,17 +14,38 @@ export default ()=> {
   const [scaled, setScaled] = useState(1)
   const [height, setHeight] = useState(30)
   const [width, setWidth] = useState(30)
-  const [currentMaze, setCurrentMaze] = useState(
-    [...new Array(Number(height))].map((_, j)=> {
+
+  const resetMaze = () => {
+    return [...new Array(Number(height))].map((_, j)=> {
       return [...new Array(Number(width))].map((_, i)=> (i == 0 || j == 0 || i == width-1 || j == height-1) ? "wall" : "space")
     })
-  )
+  }
+
+  const [currentMaze, setCurrentMaze] = useState(resetMaze())
 
   const mazeContainerInner = useRef(null)
+
   const solveMaze = () => {
-    const runner = Runner(currentMaze);
+    const refactor = currentMaze.map((row)=> {
+      return row.map((tile)=> {
+        switch(tile) {
+          case "start":
+            return "s"
+          case "end":
+            return "e"
+          case "wall":
+            return "#"
+          default: 
+            return " "
+        }
+      }).join("")
+    }).join("\n")
+
+    const maze = Maze({layout: refactor})
+    const runner = Runner(maze);
     runner.makeNodePaths();
     runner.buildPath();
+    
     setCurrentCompleted(runner);
   }
 
@@ -47,7 +70,19 @@ export default ()=> {
   }
 
   const toggleTileType = (x, y) => {
+    if (x == length || y == height) return 
+
     let newMaze = [...currentMaze]
+    if (currentTile == "start") {
+      if (start) newMaze[start[0]][start[1]] = "space"
+      setStart([x, y])
+    }
+
+    if (currentTile == "end") {
+      if (end) newMaze[end[0]][end[1]] = "space"
+      setEnd([x, y])
+    }
+
     newMaze[x][y] = currentTile
     setCurrentMaze(newMaze)
   }
@@ -98,18 +133,16 @@ export default ()=> {
     ele.addEventListener('mousedown', mouseDownHandler);
   })
 
-  console.log(currentMaze)
-
   const completedMaze = currentCompleted.completed ? currentCompleted.mappedMaze.map((row)=> {
     return (
       <div className={cx(local.f_row)}>
         {row.map((el, i)=> {
           return <div key={i} className={cx(
             local.maze_tile, 
-            {[local.start]: el == currentMaze.startChar},
-            {[local.end]: el == currentMaze.endChar},
-            {[local.wall]: el == currentMaze.wallChar},
-            {[local.open]: el == currentMaze.openChar},
+            {[local.start]: el == "s"},
+            {[local.end]: el == "e"},
+            {[local.wall]: el == "#"},
+            {[local.open]: el == " "},
             {[local.path]: el == currentCompleted.pathChar},
           )} />
         })}
@@ -152,12 +185,12 @@ export default ()=> {
                     key={i} 
                     className={cx(
                       local.maze_tile, 
-                      {[local.start]: el == start},
-                      {[local.end]: el == end},
+                      {[local.start]: el == "start"},
+                      {[local.end]: el == "end"},
                       {[local.wall]: el == "wall"},
                       {[local.open]: el == "space"},
                     )} 
-                    onClick={(e)=> toggleTileType(j, i)}
+                    onClick={()=> toggleTileType(j, i)}
                   />
                 })}
               </div>
@@ -183,6 +216,7 @@ export default ()=> {
             value={height} 
             className={local.number_input}
             onChange={(e)=> {
+              setCurrentCompleted(false)
               updateMazeHeight(checkMaxMin(e.target.value))
             }} 
           />
@@ -194,6 +228,7 @@ export default ()=> {
             value={width}
             className={local.number_input}
             onChange={(e)=> {
+              setCurrentCompleted(false)
               updateMazeWidth(checkMaxMin(e.target.value))
             }} 
           />
@@ -214,9 +249,20 @@ export default ()=> {
         </div>
         <div className={cx(local.f_row, local.justify_around, local.align_center)}>
           <button 
-            onClick={()=> solveMaze()}
+            onClick={()=> (start && end) ? solveMaze() : alert("Maze must have start and end values")}
             className={local.maze_btn}
-          >Attempt to Solve</button>
+          >Solve</button>
+          <button 
+            onClick={()=> {
+              setCurrentCompleted(false)
+              setCurrentMaze(resetMaze())
+            }}
+            className={local.maze_btn}
+          >Reset</button>       
+          {currentCompleted && <button 
+            onClick={()=> setCurrentCompleted(false)}
+            className={local.maze_btn}
+          >Keep Editing</button>}
         </div>
       </div>
       
