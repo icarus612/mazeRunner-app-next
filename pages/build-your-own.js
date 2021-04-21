@@ -51,14 +51,16 @@ export default ()=> {
 
   const updateMazeWidth = (n) => {
     let newMaze = [...currentMaze]
-    newMaze.map((x, i)=> x.length > n ? x.splice(x.length-2, x.length - n) : x.splice(x.length-1, n - newMaze.length, (i == 0 || i == height-1) ? "wall" : "space"))
+    newMaze.map((x, i)=> x.length > n ? x.splice(n-1, x.length - n) : x.splice(x.length-1, 0, ...[...Array(n - newMaze.length)].map(()=> (i == 0 || i == height-1) ? "wall" : "space")))
     setWidth(n)
     setCurrentMaze(newMaze)
   }
 
   const updateMazeHeight = (n) => {
     let newMaze = [...currentMaze]
-    newMaze.length > n ? newMaze.splice(newMaze.length-2, newMaze.length - n) : newMaze.splice(newMaze.length-1, n - newMaze.length, [...Array(Number(width))].map((_, i)=> (i == 0 || i == width-1) ? "wall" : "space"))
+    newMaze.length > n 
+      ? newMaze.splice(n-1, newMaze.length - n) 
+      : newMaze.splice(newMaze.length-2, 0, ...[...Array(n - newMaze.length)].map(()=> [...Array(Number(width))].map((_, i)=> (i == 0 || i == width-1) ? "wall" : "space")))
     setHeight(n)
     setCurrentMaze(newMaze)
   }
