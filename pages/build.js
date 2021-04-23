@@ -4,8 +4,6 @@ import local from 'styles/styles.module.scss'
 import Maze from "components/maze"
 import Runner from "components/runner"
 
-
-
 export default ()=> {
   const [currentCompleted, setCurrentCompleted] = useState(false)
   const [currentTile, setCurrentTile] = useState("wall")
@@ -45,7 +43,6 @@ export default ()=> {
     const runner = Runner(maze);
     runner.makeNodePaths();
     runner.buildPath();
-    
     setCurrentCompleted(runner);
   }
 

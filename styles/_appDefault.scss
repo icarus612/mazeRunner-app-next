@@ -1,4 +1,5 @@
 @import 'typography';
+@import url("https://fonts.googleapis.com/css?family=Inconsolata|Indie+Flower|Open+Sans|Quicksand:400,700&display=swap");
 
 html,
 body {
@@ -6,6 +7,13 @@ body {
   margin: 0;
   font-family: Arial;
   background-color: #fafcfa;
+}
+
+h1,  a {
+  font-family: 'Indie Flower', cursive;
+}
+h2, h3, h4, h5, h6, p, button {
+  font-family: 'Quicksand', sans-serif;
 }
 
 h1,
