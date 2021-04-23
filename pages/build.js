@@ -65,7 +65,7 @@ export default ()=> {
 
   const checkMaxMin = (n) => {
      if (n > 200) return 200
-     if (n < 0) return 0
+     if (n < 2) return 2
      return n
   }
 
