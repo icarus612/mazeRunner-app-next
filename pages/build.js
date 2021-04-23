@@ -58,7 +58,7 @@ export default ()=> {
     let newMaze = [...currentMaze]
     newMaze.length > n 
       ? newMaze.splice(n-1, newMaze.length - n) 
-      : newMaze.splice(newMaze.length-2, 0, ...[...Array(n - newMaze.length)].map(()=> [...Array(Number(width))].map((_, i)=> (i == 0 || i == width-1) ? "wall" : "space")))
+      : newMaze.splice(newMaze.length-1, 0, ...[...Array(n - newMaze.length)].map(()=> [...Array(Number(width))].map((_, i)=> (i == 0 || i == width-1) ? "wall" : "space")))
     setHeight(Number(n))
     setCurrentMaze(newMaze)
   }
