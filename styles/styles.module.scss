@@ -1,8 +1,28 @@
-.maze_runner {
+.nav_bar {
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
+  width: 100%;
+  background-color: #451A8D;
+  color: #f1f3f1;
+  padding: 5px 10px;
+  box-shadow: 0 0 8px 0px rgba(50,50,50,.5);
+
+  a {
+    margin: 0 10px;
+
+    &:hover {
+      color: #ad36cb;
+    }
+  }
+}
+
+.maze_runner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 30px;
   bottom: 0;
   height: 100%;
   width: 100%;
@@ -175,8 +195,6 @@
     margin-left: 10px;
     width: 45px;
   }
-
-  
 }
 
 .card {

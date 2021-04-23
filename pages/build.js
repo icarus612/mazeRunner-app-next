@@ -3,6 +3,7 @@ import cx from 'classnames'
 import local from 'styles/styles.module.scss'
 import Maze from "components/maze"
 import Runner from "components/runner"
+import Header from "components/header/desktop"
 
 export default ()=> {
   const [currentCompleted, setCurrentCompleted] = useState(false)
@@ -154,6 +155,7 @@ export default ()=> {
   )
   return (
     <div className={cx(local.container, local.maze_runner, local.f_col, local.justify_end, local.align_center)}>
+      <Header />
       <div className={cx(local.zoom_container, local.f_col, local.justify_center, local.align_center)}>
         <button 
           onClick={()=> setScaled(scaled < 2 ? scaled + .1 : 2)}
