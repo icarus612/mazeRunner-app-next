@@ -1,38 +1,39 @@
 import { useState } from "react";
 import cx from "classnames"
-import local from 'styles/styles.module.scss'
+import layout from 'styles/layout.module.scss'
+import global from 'styles/global.module.scss'
 
-import Header from "components/header/desktop"
+import Header from "components/header"
 import Link from "next/link"
 
-export default (props) => {
+export default () => {
 	return (
-    <div className={cx(local.maze_runner, local.f_wrap, local.f_col, local.justify_around, local.align_center)}>
+    <div className={cx(global.maze_runner, layout.f_wrap, layout.f_col, layout.justify_around, layout.align_center)}>
       <Header />
-      <div className={cx(local.f_wrap, local.f_row, local.justify_around, local.align_center)}>
-        <h1 className={cx(local.w100_percent, local.text_center)}>
+      <div className={cx(layout.f_wrap, layout.f_row, layout.justify_around, layout.align_center)}>
+        <h1 className={cx(layout.w100_percent, layout.text_center)}>
           The Maze Runner
         </h1>
         <Link href="/randomizer">
-          <div className={cx(local.text_center, local.card, local.f_col)}>
+          <div className={cx(layout.text_center, global.card, layout.f_col)}>
             <h5>
               Quick Builder
             </h5>
             <p>
               Click here for a randomized maze build and solve.
             </p>
-            <button className={local.maze_btn}>Randomized</button>
+            <button className={global.maze_btn}>Randomized</button>
           </div>
         </Link>
         <Link href="/build">
-          <div className={cx(local.text_center, local.card, local.f_col)}>
+          <div className={cx(layout.text_center, global.card, layout.f_col)}>
             <h5>
               Build Your Own
             </h5>
             <p>
               Click here to build your own maze and have it solved.
             </p>
-            <button className={local.maze_btn}>Customized</button>
+            <button className={global.maze_btn}>Customized</button>
           </div>
         </Link>
       </div>

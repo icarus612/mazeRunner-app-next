@@ -1,9 +1,10 @@
 import {useState, useEffect, useRef} from 'react'
 import cx from 'classnames'
-import local from 'styles/styles.module.scss'
+import global from 'styles/global.module.scss'
+import layout from 'styles/layout.module.scss'
 import Maze from "components/maze"
 import Runner from "components/runner"
-import Header from "components/header/desktop"
+import Header from "components/header"
 
 export default ()=> {
   const [currentMaze, setCurrentMaze] = useState(false)
@@ -38,7 +39,7 @@ export default ()=> {
   }
   
   useEffect(()=> {
-    [...document.querySelectorAll(`.${local.path}`)].map((e)=> e.classList.add(local.visible))
+    [...document.querySelectorAll(`.${global.path}`)].map((e)=> e.classList.add(global.visible))
 
     const ele = mazeContainerInner.current;
     ele.style.cursor = 'grab';
@@ -85,45 +86,45 @@ export default ()=> {
 
   const completedMaze = currentCompleted.completed ? currentCompleted.mappedMaze.map((row)=> {
     return (
-      <div className={cx(local.f_row)}>
+      <div className={cx(layout.f_row)}>
         {row.map((el, i)=> {
           return <div key={i} className={cx(
-            local.maze_tile, 
-            {[local.start]: el == currentMaze.startChar},
-            {[local.end]: el == currentMaze.endChar},
-            {[local.wall]: el == currentMaze.wallChar},
-            {[local.open]: el == currentMaze.openChar},
-            {[local.path]: el == currentCompleted.pathChar},
+            global.maze_tile, 
+            {[global.start]: el == currentMaze.startChar},
+            {[global.end]: el == currentMaze.endChar},
+            {[global.wall]: el == currentMaze.wallChar},
+            {[global.open]: el == currentMaze.openChar},
+            {[global.path]: el == currentCompleted.pathChar},
           )} />
         })}
       </div>
     )
   }) : (
-    <div className={cx(local.h100_percent, local.w100_percent, local.f_row, local.justify_center, local.align_center, local.text_center)}>
+    <div className={cx(layout.h100_percent, layout.w100_percent, layout.f_row, layout.justify_center, layout.align_center, layout.text_center)}>
       <h4>Maze is not Solvable</h4>
     </div>
   )
   
   return (
-    <div className={cx(local.container, local.maze_runner, local.f_col, local.justify_end, local.align_center)}>
+    <div className={cx(layout.container, global.maze_runner, layout.f_col, layout.justify_end, layout.align_center)}>
       <Header />
-      <div className={cx(local.zoom_container, local.f_col, local.justify_center, local.align_center)}>
+      <div className={cx(global.zoom_container, layout.f_col, layout.justify_center, layout.align_center)}>
         <button 
           onClick={()=> setScaled(scaled < 2 ? scaled + .1 : 2)}
-          className={local.zoom_btn}
+          className={global.zoom_btn}
         >+</button>
         <button 
           onClick={()=> setScaled(scaled >= .2 ? scaled - .1 : .1)}
-          className={local.zoom_btn}
+          className={global.zoom_btn}
         >-</button>
       </div>
       <div 
-        className={cx(local.maze_container, local.f_row, local.justify_center, local.align_center)}
+        className={cx(global.maze_container, layout.f_row, layout.justify_center, layout.align_center)}
         ref={mazeContainerInner}
       >
-      <div className={cx(local.maze_container_middle, local.f_col, local.justify_center, local.align_center)}>
+      <div className={cx(global.maze_container_middle, layout.f_col, layout.justify_center, layout.align_center)}>
         <div 
-          className={cx(local.maze_container_inner)} 
+          className={cx(global.maze_container_inner)} 
           style={{
             transform: `scale(${scaled})`,
             padding: `${20/scaled}px`,
@@ -131,25 +132,25 @@ export default ()=> {
         >
           {currentMaze ? currentMaze.layout.map((row)=> {
             return (
-              <div className={cx(local.f_row)}>
+              <div className={cx(layout.f_row)}>
                 {row.map((el, i)=> {
                   return <div key={i} className={cx(
-                    local.maze_tile, 
-                    {[local.start]: el == currentMaze.startChar},
-                    {[local.end]: el == currentMaze.endChar},
-                    {[local.wall]: el == currentMaze.wallChar},
-                    {[local.open]: el == currentMaze.openChar},
+                    global.maze_tile, 
+                    {[global.start]: el == currentMaze.startChar},
+                    {[global.end]: el == currentMaze.endChar},
+                    {[global.wall]: el == currentMaze.wallChar},
+                    {[global.open]: el == currentMaze.openChar},
                   )} />
                 })}
               </div>
             )
           }) : [...new Array(Number(height))].map((_, j)=> {
               return (
-                <div className={cx(local.f_row)}>
+                <div className={cx(layout.f_row)}>
                   { [...new Array(Number(width))].map((_, i)=> {
                     return <div key={`${i}${j}`} className={cx(
-                      local.maze_tile, 
-                      local[( i == 0 || j == 0 || i == width-1 || j == height-1) ? "wall" : "space"]
+                      global.maze_tile, 
+                      global[( i == 0 || j == 0 || i == width-1 || j == height-1) ? "wall" : "space"]
                     )} />
                   })}
                 </div>
@@ -159,7 +160,7 @@ export default ()=> {
 
           {currentCompleted && (
             <div 
-              className={local.solved}
+              className={global.solved}
               style={{
                 top: `${20/scaled}px`
               }}
@@ -170,32 +171,32 @@ export default ()=> {
         </div>
         </div>
         </div>
-      <div className={cx(local.f_row, local.f_wrap, local.justify_center, local.align_center, local.settings_container)}>
-        <div className={local.number_container}>
+      <div className={cx(layout.f_row, layout.f_wrap, layout.justify_center, layout.align_center, global.settings_container)}>
+        <div className={global.number_container}>
           <label>Height:</label>
           <input 
             type="number" 
             value={height} 
-            className={local.number_input}
+            className={global.number_input}
             onChange={(e)=> {
               resetMazes()
               setHeight(checkMaxMin(e.target.value))
             }} 
           />
         </div>
-        <div className={local.number_container}>
+        <div className={global.number_container}>
           <label>Width:</label>
           <input 
             type="number" 
             value={width}
-            className={local.number_input}
+            className={global.number_input}
             onChange={(e)=> {
               resetMazes()
               setWidth(checkMaxMin(e.target.value))
             }} 
           />
         </div>
-        <div className={cx(local.w100_percent, local.f_row, local.f_wrap, local.align_end, local.justify_center)}>
+        <div className={cx(layout.w100_percent, layout.f_row, layout.f_wrap, layout.align_end, layout.justify_center)}>
           <span>Endpoint Placement:</span>
           <select 
             name="type" 
@@ -209,14 +210,14 @@ export default ()=> {
             <option value="r">Start: random | End: random</option>
           </select>  
         </div>
-        <div className={cx(local.f_row, local.justify_around, local.align_center)}>
+        <div className={cx(layout.f_row, layout.justify_around, layout.align_center)}>
           <button 
             onClick={()=> newMaze()}
-            className={local.maze_btn}
+            className={global.maze_btn}
           >New Maze</button>
           {currentMaze && <button 
             onClick={()=> solveMaze()}
-            className={local.maze_btn}
+            className={global.maze_btn}
           >Attempt to Solve</button>}
         </div>
       </div>

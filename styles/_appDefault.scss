@@ -1,19 +1,18 @@
-@import 'typography';
-@import url("https://fonts.googleapis.com/css?family=Inconsolata|Indie+Flower|Open+Sans|Quicksand:400,700&display=swap");
+@import 'styles/theme';
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: Arial;
-  background-color: #fafcfa;
+  font-family: $sans;
+  background-color: $white;
 }
 
 h1,  a {
-  font-family: 'Indie Flower', cursive;
+  font-family: $cursive;
 }
 h2, h3, h4, h5, h6, p, button {
-  font-family: 'Quicksand', sans-serif;
+  font-family: $sans;
 }
 
 h1,
@@ -53,9 +52,9 @@ h6 {
 p {
   font-size: 16px;
   font-weight: 400;
-  color: $dark-light;
+  color: $grey-dk;
   letter-spacing: .3px;
-  font-family: $sans-serif;
+  font-family: $sans;
 }
 
 a {
@@ -65,7 +64,7 @@ a {
 }
 
 a:hover {
- columns: #ba55d3;
+ columns: $complementary;
 }
 
 * {

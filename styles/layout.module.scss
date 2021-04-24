@@ -1,0 +1,157 @@
+.container, 
+.container_3d {
+  padding: 25px;
+  width: 100%;
+  max-width: 1250px;
+  margin: auto;
+}
+
+.container_3d {
+  box-shadow: 0 0 -1px 20px rgba(50, 50, 50, .5);
+}
+
+.h100_vh {
+  height: 100vh;
+}
+
+.w100_vw {
+  width: 100vw;
+}
+
+.h100_percent {
+  height: 100%;
+}
+
+.w100_percent {
+  width: 100%;
+}
+
+.text_left {
+  text-align: left;
+}
+
+.text_right {
+  text-align: right;
+}
+
+.text_center {
+  text-align: center;
+}
+
+.f_col {
+  flex-direction: column;
+}
+
+.f_row {
+  flex-direction: row;
+}
+
+.f_row, 
+.f_col,
+.f_row_mob,
+.f_col_mob {
+  display: flex;
+
+  &.f_wrap {
+    flex-wrap: wrap;
+  }
+  
+  &.justify_center {
+    justify-content: center;
+  }
+
+  &.align_center {
+    align-items: center;
+  }
+
+  &.justify_start {
+    justify-content: flex-start;
+  }
+
+  &.align_start {
+    align-items: flex-start;
+  }
+
+  &.justify_end {
+    justify-content: flex-end;
+  }
+
+  &.align_end {
+    align-items: flex-end;
+  }
+
+  &.justify_around {
+    justify-content: space-around;
+  }
+
+  &.justify_between {
+    justify-content: space-between;
+  }
+
+  &.align_stretch {
+    align-items: stretch;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .text_left_mob {
+    text-align: left;
+  }
+  
+  .text_right_mob {
+    text-align: right;
+  }
+  
+  .text_center_mob {
+    text-align: center;
+  }
+  
+  .f_row_mob {
+    flex-direction: row;
+  }
+  
+  .f_col_mob {
+    flex-direction: column;
+  }
+  
+  .f_row_mob,
+  .f_col_mob,
+  .f_col,
+  .f_row {  
+    &.justify_center_mob {
+      justify-content: center;
+    }
+  
+    &.align_center_mob {
+      align-items: center;
+    }
+  
+    &.justify_start_mob {
+      justify-content: flex-start;
+    }
+  
+    &.align_start_mob {
+      align-items: flex-start;
+    }
+    
+    &.justify_end_mob {
+      justify-content: flex-end;
+    }
+  
+    &.align_end_mob {
+      align-items: flex-end;
+    }
+
+    &.justify_around_mob {
+      justify-content: space-around;
+    }
+  
+    &.justify_between_mob {
+      justify-content: space-between;
+    }
+  
+    &.align_stretch_mob {
+      align-items: stretch;
+    }
+  }
+}

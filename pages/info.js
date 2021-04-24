@@ -1,15 +1,15 @@
 import { useState } from "react";
 import cx from "classnames"
-import local from 'styles/styles.module.scss'
+import global from 'styles/global.module.scss'
+import layout from 'styles/layout.module.scss'
 
-import Header from "components/header/desktop"
-import Link from "next/link"
+import Header from "components/header"
 
 export default (props) => {
 	return (
-    <div className={cx(local.maze_runner, local.f_wrap, local.f_col, local.justify_around, local.align_center)}>
+    <div className={cx(global.maze_runner, layout.f_wrap, layout.f_col, layout.justify_around, layout.align_center)}>
       <Header />
-      <div className={cx(local.container)}>
+      <div className={cx(layout.container)}>
 				<h1>
           The Maze Runner Project
         </h1>
