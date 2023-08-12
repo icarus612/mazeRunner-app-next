@@ -1,7 +1,7 @@
 
 [build]
   functions = "functions"
-  publish = "/out"
+  publish = ".next"
   command = "CI= yarn build"
 [[redirects]]
   from = "/*"
