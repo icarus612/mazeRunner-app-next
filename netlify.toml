@@ -1,8 +1,8 @@
 
 [build]
   functions = "functions"
-  publish = "build"
-  command = "CI= next build"
+  publish = ".next"
+  command = "CI= yarn build"
 [[redirects]]
   from = "/*"
   to = "/index.html"
